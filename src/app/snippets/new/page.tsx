@@ -18,7 +18,7 @@ function SnippetCreatePage() {
         code: code,
       },
     });
-    console.log(snippet);
+
     // Redirect User back to root path
     redirect("/");
   }
