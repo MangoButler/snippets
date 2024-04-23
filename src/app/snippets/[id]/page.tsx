@@ -1,4 +1,5 @@
 import { db } from "@/db";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 interface ShowSnippetsPageProps {
   params: {
@@ -9,7 +10,7 @@ interface ShowSnippetsPageProps {
 const ShowSnippetsPage: React.FC<ShowSnippetsPageProps> = async (
   props: ShowSnippetsPageProps
 ) => {
-//   await new Promise((r) => setTimeout(r, 2000)); // causing the delay of 2000ms
+  //   await new Promise((r) => setTimeout(r, 2000)); // causing the delay of 2000ms
   const snippet = await db.snippet.findFirst({
     where: { id: parseInt(props.params.id) },
   });
@@ -19,8 +20,21 @@ const ShowSnippetsPage: React.FC<ShowSnippetsPageProps> = async (
   }
   return (
     <div>
-      <p>{snippet.title}</p>
-      <p>{snippet.code}</p>
+      <div className="flex m-4 justify-between items-center">
+        <h1 className="text-xl font-bold">{snippet.title}</h1>
+        <div className="flex gap-4">
+          <Link
+            href={`/snippets/${snippet.id}/edit`}
+            className="p-2 border rounded"
+          >
+            Edit
+          </Link>
+          <button className="p-2 border rounded">Delete</button>
+        </div>
+      </div>
+      <pre className="p-3 border rounded bg-gray-200 border-gray-200">
+        <code>{snippet.code}</code>
+      </pre>
     </div>
   );
 };
