@@ -23,7 +23,7 @@ const SnippetEditPage: React.FC<SnippetEditPageProps> = async (
   }
   return (
     <div>
-      <h1>Edititng Snippet with title of '{snippet.title}'</h1>
+      <h1>Edititng Snippet with title of {snippet.title}</h1>
       <SnippetEditForm snippet={snippet} />
     </div>
   );
