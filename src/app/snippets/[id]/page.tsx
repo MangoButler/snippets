@@ -46,3 +46,13 @@ const ShowSnippetsPage: React.FC<ShowSnippetsPageProps> = async (
 };
 
 export default ShowSnippetsPage;
+
+export async function generateStaticParams() {
+  const snippets = await db.snippet.findMany();
+
+  return snippets.map((snippet) => {
+    return {
+      id: snippet.id.toString(),
+    };
+  });
+}

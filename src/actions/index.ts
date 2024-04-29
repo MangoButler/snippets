@@ -2,6 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { db } from "@/db";
+import { revalidatePath } from "next/cache";
 
 export async function createSnippet(
   formState: { message: string },
@@ -37,6 +38,7 @@ export async function createSnippet(
     }
     return { message: "Something went wrong!" };
   }
+  revalidatePath("/");
   redirect("/"); //redirect function actually throws a special; error that is then hanled by next to send the user to the desired path, however if you put it into a try catch block it will be cought and handled before the special next code handles it
 }
 
@@ -45,6 +47,7 @@ export async function editSnippet(id: number, code: string) {
     where: { id },
     data: { code },
   });
+  revalidatePath(`/snippets/${id}`);
   redirect(`/snippets/${id}`);
 }
 
@@ -53,5 +56,6 @@ export async function deletSnippet(id: number) {
     where: { id },
   });
 
+  revalidatePath("/");
   redirect("/");
 }

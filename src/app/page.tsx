@@ -1,6 +1,10 @@
 import { db } from "@/db";
 import Link from "next/link";
 
+// export const dynamic = "force-dynamic";
+
+export const revalidate = 5;
+
 export default async function Home() {
   const snippets = await db.snippet.findMany();
 
